@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+
+<h2>Login Page</h2>
+
+<input type="text" id="username" placeholder="Username"><br><br>
+<input type="password" id="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+<script>
+function login() {
+
+    var u = document.getElementById("username").value;
+    var p = document.getElementById("password").value;
+    var msg = document.getElementById("msg");
+
+    // Empty fields
+    if (u == "" || p == "") {
+        msg.innerText = "Fields cannot be empty";
+    }
+
+    // SQL Injection
+    else if (u.includes("'") || u.includes("OR")) {
+        msg.innerText = "SQL Injection detected";
+    }
+
+    // Password length (Boundary Value)
+    else if (p.length < 8) {
+        msg.innerText = "Password too short";
+    }
+    else if (p.length > 12) {
+        msg.innerText = "Password too long";
+    }
+
+    // Valid login
+    else if (u == "student" && p == "12345678") {
+        msg.innerText = "Login successful";
+    }
+
+    // Invalid login
+    else {
+        msg.innerText = "Invalid credentials";
+    }
+}
+</script>
+
+</body>
+</html>
